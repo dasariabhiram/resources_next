@@ -1,13 +1,13 @@
-import Filters from '@/components/Filters'
+import Filters from '@/components/Filters';
 import Header from '@/components/Header';
-import ResourceCard from '@/components/ResourceCard'
-import SearchForm from '@/components/SearchForm'
-import { getResources, getResourcesPlaylist } from '@/sanity/actions'
+import ResourceCard from '@/components/ResourceCard';
+import SearchForm from '@/components/SearchForm';
+import { getResources, getResourcesPlaylist } from '@/sanity/actions';
 
 export const revalidate = 900;
 
 interface Props {
-  searchParams: { [key: string]: string | undefined }
+  searchParams: { [key: string]: string | undefined };
 }
 
 const Page = async ({ searchParams }: Props) => {
@@ -15,17 +15,17 @@ const Page = async ({ searchParams }: Props) => {
     query: searchParams?.query || '',
     category: searchParams?.category || '',
     page: '1'
-  })
+  });
 
   const resourcesPlaylist = await getResourcesPlaylist();
-  
-  console.log(resourcesPlaylist)
+
+  console.log(resourcesPlaylist);
 
   return (
-    <main className="flex-center paddings mx-auto w-full max-w-screen-2xl flex-col">
+    <main className="flex-center paddings mx-auto w-full max-w-screen-2xl flex-col bg-gray-900 text-white">
       <section className="nav-padding w-full">
         <div className="flex-center relative min-h-[274px] w-full flex-col rounded-xl bg-banner bg-cover bg-center text-center">
-          <h1 className="sm:heading1 heading2 mb-6 text-center text-white">JavaScript Mastery Resources</h1>
+          <h1 className="sm:heading1 heading2 mb-6 text-center text-white">All Stack Resources</h1>
         </div>
         <SearchForm />
       </section>
@@ -52,7 +52,7 @@ const Page = async ({ searchParams }: Props) => {
                 />
               ))
             ): (
-              <p className="body-regular text-white-400">
+              <p className="body-regular text-gray-400">
                 No resources found
               </p>
             )}
@@ -62,7 +62,7 @@ const Page = async ({ searchParams }: Props) => {
 
       {resourcesPlaylist.map((item: any) => (
         <section key={item._id} className="flex-center mt-6 w-full flex-col sm:mt-20">
-          <h1 className="heading3 self-start text-white-800">{item.title}</h1>
+          <h1 className="heading3 self-start">{item.title}</h1>
           <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
             {item.resources.map((resource: any) => (
                 <ResourceCard 
@@ -78,7 +78,7 @@ const Page = async ({ searchParams }: Props) => {
         </section>
       ))}
     </main>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
